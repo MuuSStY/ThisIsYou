@@ -6,14 +6,13 @@ public class CameraController : MonoBehaviour {
 
     private Camera _camera;
 
-    private float _currentTargetSize;
+    public float _currentTargetSize;
 
     public float _zoomVelocity = 0.4f;
 
     void Awake ()
     {
         _camera = GetComponent<Camera>();
-        _currentTargetSize = 6f;
 	}
 	
 	void Update ()
