@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerModelCenital : MonoBehaviour
+public class PlayerModelTopDown : MonoBehaviour
 {
 
     //Hide in inspector (o no, da un poco igual)
-    float _x = 0, _y = 0;
+    float _x = 0, _y = 0, movementspeed;
 
     public int _facingDirection = 1;
     public Vector2 _snapArea = new Vector2(2.5f, 2.5f);
@@ -25,6 +25,7 @@ public class PlayerModelCenital : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _particleSystem = GetComponent<ParticleSystem>();
+        _rigidbody.gravityScale = 0.0f;
 
         //_groundedActionState = new GroundedActionState(this);
         //_airborneActionState = new AirborneActionState(this);
@@ -32,23 +33,36 @@ public class PlayerModelCenital : MonoBehaviour
 
     void Start()
     {
-
+        movementspeed = 2f;
     }
 
     void Update()
     {
-        if (_rigidbody.velocity.x != 0)
+        if (IsMoving())
         {
-            _facingDirection = (int)(_rigidbody.velocity.x / Mathf.Abs(_rigidbody.velocity.x));
+            if (_x < 0)
+            {
+                transform.Translate(Vector3.left * movementspeed * Time.deltaTime);
+            }
+            else if (_x > 0)
+            {
+                transform.Translate(Vector3.right * movementspeed * Time.deltaTime);
+            }
+            if (_y < 0)
+            {
+                transform.Translate(Vector3.down * movementspeed * Time.deltaTime);
+            }
+            else if (_y > 0)
+            {
+                transform.Translate(Vector3.up * movementspeed * Time.deltaTime);
+            }
         }
-        move(_x, _y);
 
     }
-    void move(float _x, float _y)
+
+    public bool IsMoving()
     {
-
-        _rigidbody.velocity = new Vector2(_x * Time.deltaTime, _y * Time.deltaTime);
-
+        return (_x != 0 || _y != 0);
     }
 
     public void setPos(float x, float y)

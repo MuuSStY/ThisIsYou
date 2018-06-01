@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerModel))]
-public class PlayerControllerCenital : MonoBehaviour
+public class PlayerControllerTopDown : MonoBehaviour
 {
 
 
-    private PlayerModelCenital _playerModelCenital;
+    private PlayerModelTopDown _playerModelTopDown;
 
     void Awake()
     {
 
-        _playerModelCenital = GetComponent<PlayerModelCenital>();
+        _playerModelTopDown = GetComponent<PlayerModelTopDown>();
     }
 
 
@@ -42,6 +42,6 @@ public class PlayerControllerCenital : MonoBehaviour
         x = Input.GetAxis("Horizontal");
         y = Input.GetAxis("Vertical");
 
-        _playerModelCenital.setPos(x, y);
+        _playerModelTopDown.setPos(x, y);
     }
 }
