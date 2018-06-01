@@ -9,15 +9,11 @@ public class CameraController : MonoBehaviour {
     private float _currentTargetSize;
 
     public float _zoomVelocity = 0.4f;
-    public float _ssj1TargetSize = 6f;
-    public float _ssj2TargetSize = 7f;
-    public float _ssj3TargetSize = 8f;
-
 
     void Awake ()
     {
         _camera = GetComponent<Camera>();
-        _currentTargetSize = _ssj1TargetSize;
+        _currentTargetSize = 6f;
 	}
 	
 	void Update ()
