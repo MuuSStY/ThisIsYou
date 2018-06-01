@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour {
 
         float x = 0, y = 0;//float por si hubiera mando o para normalizar
 
-        if (Input.GetKey(KeyCode.C) || Input.GetKey(KeyCode.JoystickButton0))
+        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.JoystickButton0))
         {
             _playerModel._jumpButtonPressed = true;
         }
@@ -27,14 +27,9 @@ public class PlayerController : MonoBehaviour {
             _playerModel._jumpButtonPressed = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.JoystickButton0))//Salto normal
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0))//Salto normal
         {
             _playerModel.OnJumpHighButton();
-        }
-
-        if(Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.JoystickButton2))//Salto largo
-        {
-            _playerModel.OnJumpLongButton();
         }
 
         if (Input.GetKey(KeyCode.DownArrow))
@@ -59,10 +54,5 @@ public class PlayerController : MonoBehaviour {
         y = Input.GetAxis("Vertical");
 
         _playerModel.DirectionBindings(x, y);
-
-        if (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Joystick1Button4))
-        {
-            _playerModel.OnReleaseEnergyButton();
-        }
     }
 }
