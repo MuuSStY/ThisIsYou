@@ -10,6 +10,7 @@ public class PlayerViewTopDown : MonoBehaviour {
     public int directionX = 1;
     public int directionY = 0;
     public bool isMoving = false;
+    public bool isJumping = false;
 
     void Start () {
         animator = GetComponent<Animator>();
@@ -33,6 +34,7 @@ public class PlayerViewTopDown : MonoBehaviour {
         //    animator.SetFloat("DirectionY", direction.y);
         //}
         animator.SetBool("isMoving", isMoving);
+        animator.SetBool("isJumping", isJumping);
         //animator.SetBool("isMoving", playerModelTopDown.IsMoving());
     }
 }

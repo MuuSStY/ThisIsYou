@@ -11,6 +11,7 @@ public class PlayerViewSidescroller : MonoBehaviour
     public int directionX = 1;
     public int directionY = 0;
     public bool isMoving = false;
+    public bool isJumping = false;
 
     void Start()
     {
@@ -36,6 +37,8 @@ public class PlayerViewSidescroller : MonoBehaviour
         //    animator.SetFloat("DirectionY", direction.y);
         //}
         animator.SetBool("isMoving", isMoving);
+        animator.SetBool("isJumping", isJumping);
+
         //animator.SetBool("isMoving", playerModelTopDown.IsMoving());
     }
 }
