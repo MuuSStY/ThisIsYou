@@ -2,21 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour {
-
-    private Camera _camera;
-
-    public float _currentTargetSize;
-
+public class CameraIntroController : MonoBehaviour {
     public float _zoomVelocity = 0.4f;
 
-    void Awake ()
-    {
+    private Camera _camera;
+    private float _currentTargetSize;
+    // Use this for initialization
+    void Awake () {
         _camera = GetComponent<Camera>();
-	}
+        _currentTargetSize = 6f;
+    }
 	
-	void Update ()
-    {
+	// Update is called once per frame
+	void Update () {
         float size = _camera.orthographicSize;
 
         if (_currentTargetSize - size < 0)
@@ -32,10 +30,5 @@ public class CameraController : MonoBehaviour {
         {
             _camera.orthographicSize = _currentTargetSize;
         }
-	}
-
-    public void ChangeCameraTargetSize(int powerLevel)
-    {
-        _currentTargetSize = powerLevel;
     }
 }
