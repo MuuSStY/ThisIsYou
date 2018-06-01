@@ -13,7 +13,7 @@ public class PlayerModelTopDown : MonoBehaviour
 
     public int _facingDirection = 1;
     public Vector2 _snapArea = new Vector2(2.5f, 2.5f);
-
+    private Vector2 pos;
     private Rigidbody2D _rigidbody;
     private ParticleSystem _particleSystem;
 
@@ -28,7 +28,7 @@ public class PlayerModelTopDown : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _particleSystem = GetComponent<ParticleSystem>();
         _rigidbody.gravityScale = 0.0f;
-
+        pos = transform.position;
         //_groundedActionState = new GroundedActionState(this);
         //_airborneActionState = new AirborneActionState(this);
     }
@@ -44,29 +44,24 @@ public class PlayerModelTopDown : MonoBehaviour
         //_rigidbody.angularVelocity = 0;
         if (IsMoving())
         {
-            if (_x < 0)
-            {
-                transform.Translate(Vector3.left * movementspeed * Time.deltaTime);
+            if (Input.GetKey(KeyCode.A) && Vector2.Equals(new Vector2(transform.position.x, transform.position.y), pos))
+            {        // Left
+                pos += Vector2.left;
             }
-            else if (_x > 0)
-            {
-                transform.Translate(Vector3.right * movementspeed * Time.deltaTime);
+            if (Input.GetKey(KeyCode.D) && Vector2.Equals(new Vector2(transform.position.x, transform.position.y), pos))
+            {        // Right
+                pos += Vector2.right;
             }
-            if (_y < 0)
-            {
-                transform.Translate(Vector3.down * movementspeed * Time.deltaTime);
+            if (Input.GetKey(KeyCode.W) && Vector2.Equals(new Vector2(transform.position.x, transform.position.y), pos))
+            {        // Up
+                pos += Vector2.up;
             }
-            else if (_y > 0)
-            {
-                transform.Translate(Vector3.up * movementspeed * Time.deltaTime);
+            if (Input.GetKey(KeyCode.S) && Vector2.Equals(new Vector2(transform.position.x, transform.position.y), pos))
+            {        // Down
+                pos += Vector2.down;
             }
+            transform.position = Vector3.MoveTowards(transform.position, pos, Time.deltaTime * movementspeed);
         }
-        else
-        {
-            
-
-        }
-
     }
 
     public bool IsMoving()
