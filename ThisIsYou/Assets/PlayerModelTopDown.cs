@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerModelTopDown : MonoBehaviour
@@ -8,6 +9,7 @@ public class PlayerModelTopDown : MonoBehaviour
 
     //Hide in inspector (o no, da un poco igual)
     float _x = 0, _y = 0, movementspeed;
+
 
     public int _facingDirection = 1;
     public Vector2 _snapArea = new Vector2(2.5f, 2.5f);
@@ -38,6 +40,8 @@ public class PlayerModelTopDown : MonoBehaviour
 
     void Update()
     {
+        //_rigidbody.velocity = Vector3.zero;
+        //_rigidbody.angularVelocity = 0;
         if (IsMoving())
         {
             if (_x < 0)
@@ -56,6 +60,11 @@ public class PlayerModelTopDown : MonoBehaviour
             {
                 transform.Translate(Vector3.up * movementspeed * Time.deltaTime);
             }
+        }
+        else
+        {
+            
+
         }
 
     }

@@ -1,18 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerModel))]
 public class PlayerControllerTopDown : MonoBehaviour
 {
 
-
+    Slider BoyVsGirl;
     private PlayerModelTopDown _playerModelTopDown;
 
     void Awake()
     {
 
         _playerModelTopDown = GetComponent<PlayerModelTopDown>();
+        BoyVsGirl = GameObject.Find("Slider").GetComponent<Slider>();
     }
 
 
@@ -38,10 +40,11 @@ public class PlayerControllerTopDown : MonoBehaviour
         {
             x = 1;
         }
+        if (Input.GetKey(KeyCode.C))
+        {
+            BoyVsGirl.value -= 0.1f;
+        }
 
-        x = Input.GetAxis("Horizontal");
-        y = Input.GetAxis("Vertical");
-
-        _playerModelTopDown.setPos(x, y);
+            _playerModelTopDown.setPos(x, y);
     }
 }
