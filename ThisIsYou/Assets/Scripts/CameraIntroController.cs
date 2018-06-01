@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraIntroController : MonoBehaviour {
-    public Camera _camera;
     public float _zoomVelocity = 0.4f;
 
-    private float _currentSizeToGet;
+    private Camera _camera;
     private float _currentTargetSize;
     // Use this for initialization
     void Awake () {
