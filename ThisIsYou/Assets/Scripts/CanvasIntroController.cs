@@ -22,7 +22,12 @@ public class CanvasIntroController : MonoBehaviour {
 
         if (size == _size_to_reach)
         {
-
+            Color c = _text.color;
+            Color c_image = _image.color;
+            c.a = 1.0f;
+            _text.color = c;
+            c_image.a = 0.0f;
+            _image.color = c_image;
         }
 	}
 }
