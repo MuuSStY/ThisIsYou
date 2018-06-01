@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerModel : MonoBehaviour {
 
     //Hide in inspector (o no, da un poco igual)
     public bool _jumpButtonPressed = false;
-    public bool _isLongJump = false;
 
     public int _facingDirection = 1;
     public Vector2 _snapArea = new Vector2(2.5f, 2.5f);
@@ -19,10 +19,12 @@ public class PlayerModel : MonoBehaviour {
     private Rigidbody2D _rigidbody;
     private ParticleSystem _particleSystem;
 
+    private bool canMove;
+
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.white;
-        Gizmos.DrawWireCube(transform.position, new Vector3(_snapArea.x, _snapArea.y, 0));
+        //Gizmos.color = Color.white;
+        //Gizmos.DrawWireCube(transform.position, new Vector3(_snapArea.x, _snapArea.y, 0));
     }
 
     void Awake()
@@ -32,6 +34,8 @@ public class PlayerModel : MonoBehaviour {
 
         _groundedActionState = new GroundedActionState(this);
         _airborneActionState = new AirborneActionState(this);
+
+        canMove = true;
     }
 
     void Start ()
@@ -67,7 +71,14 @@ public class PlayerModel : MonoBehaviour {
 
     public void DirectionBindings(float x, float y)
     {
-        _currentActionState.MovementInput(x, y);
+        if (canMove)
+        {
+            _currentActionState.MovementInput(x, y);
+        }
+        else
+        {
+            _rigidbody.velocity = new Vector2(0.0f, 0.0f);
+        }
     }
 
     public void OnJumpHighButton()
@@ -75,8 +86,38 @@ public class PlayerModel : MonoBehaviour {
         _currentActionState.OnJumpHighButton();
     }
 
+    public bool IsJumping()
+    {
+        return _currentActionState == _airborneActionState;
+    }
+
+    public bool IsMoving()
+    {
+        return _rigidbody.velocity.x != 0f;
+    }
+
+    public int GetFacingDirection()
+    {
+        return _facingDirection;
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
-        //Recibir daño
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Pinchito")
+        {
+            StartCoroutine(ResetLevel());
+            canMove = false;
+        }
+    }
+
+    IEnumerator ResetLevel()
+    {
+        yield return new WaitForSeconds(1.0f);
+        canMove = true;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
