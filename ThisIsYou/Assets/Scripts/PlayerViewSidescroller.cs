@@ -8,6 +8,9 @@ public class PlayerViewSidescroller : MonoBehaviour
 
     private Animator animator;
     private PlayerModel playerModel; 
+    public int directionX = 1;
+    public int directionY = 0;
+    public bool isMoving = false;
 
     void Start()
     {
@@ -24,15 +27,15 @@ public class PlayerViewSidescroller : MonoBehaviour
     void UpdateFacingDirection()
     {
         //Vector3 direction = playerModel.GetFacingDirection();
-        animator.SetFloat("DirectionX", 1);
-        animator.SetFloat("DirectionY", 1);
+        animator.SetFloat("DirectionX", directionX);
+        animator.SetFloat("DirectionY", directionY);
 
         //if (direction != Vector3.zero)
         //{
         //    animator.SetFloat("DirectionX", direction.x);
         //    animator.SetFloat("DirectionY", direction.y);
         //}
-
+        animator.SetBool("isMoving", isMoving);
         //animator.SetBool("isMoving", playerModelTopDown.IsMoving());
     }
 }
