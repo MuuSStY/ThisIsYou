@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SeekPoint : MonoBehaviour
 {
@@ -57,13 +58,20 @@ public class SeekPoint : MonoBehaviour
                             Color c = image_to_change.color;
                             c.a -= 0.01f;
                             image_to_change.color = c;
-                        }else if (image_to_change.color.a >= 1.0f)
+                        }else if (image_to_change.color.a <= 0.0f)
                         {
                             //Change scene
+                            StartCoroutine(StartNewLevel());
                         }
                     }
                 }
             }
         }
     }
+    IEnumerator StartNewLevel()
+    {
+        yield return new WaitForSeconds(2.0f);
+        SceneManager.LoadScene("Escuela");
+    }
 }
+
