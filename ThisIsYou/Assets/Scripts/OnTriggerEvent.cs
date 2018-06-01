@@ -3,23 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OnTriggerEvent : MonoBehaviour {
+public class OnTriggerEvent : MonoBehaviour
+{
+    public enum TriggerType
+    {
+        BOYTOYS,
+        GIRLTOYS
+    }
+    public TriggerType triggerType;
 
-    GameManager manager;
+    PlayerModel playerModel;
 
     void Awake()
     {
-        manager = FindObjectOfType<GameManager>();
-    }
-
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
+        playerModel = FindObjectOfType<PlayerModel>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -27,9 +24,17 @@ public class OnTriggerEvent : MonoBehaviour {
         if (collision.CompareTag("Player"))
         {
             Slider slider = GameObject.Find("Slider2").GetComponent<Slider>();
-            slider.value = 0.7f;
-            Debug.Log(slider.value);
-            manager.LoadScene(GameManager.ScenesToLoad.INTRO);
+            switch (triggerType)
+            {
+                case TriggerType.BOYTOYS:
+                    slider.value -= 0.2f;
+                    Debug.Log(slider.value);
+                    break;
+                case TriggerType.GIRLTOYS:
+                    slider.value += 0.2f;
+                    Debug.Log(slider.value);
+                    break;
+            }
         }
     }
 }
