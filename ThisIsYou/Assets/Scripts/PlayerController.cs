@@ -32,23 +32,23 @@ public class PlayerController : MonoBehaviour {
             _playerModel.OnJumpHighButton();
         }
 
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            y = -1;
-        }
-        else if (Input.GetKey(KeyCode.UpArrow))
-        {
-            y = 1;
-        }
+        //if (Input.GetKey(KeyCode.DownArrow))
+        //{
+        //    y = -1;
+        //}
+        //else if (Input.GetKey(KeyCode.UpArrow))
+        //{
+        //    y = 1;
+        //}
 
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            x = -1;
-        }
-        else if (Input.GetKey(KeyCode.RightArrow))
-        {
-            x = 1;
-        }
+        //if (Input.GetKey(KeyCode.LeftArrow))
+        //{
+        //    x = -1;
+        //}
+        //else if (Input.GetKey(KeyCode.RightArrow))
+        //{
+        //    x = 1;
+        //}
 
         x = Input.GetAxis("Horizontal");
         y = Input.GetAxis("Vertical");

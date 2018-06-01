@@ -7,10 +7,10 @@ public class PlayerViewSidescroller : MonoBehaviour
 {
 
     private Animator animator;
-    private PlayerModel playerModel; 
+    private PlayerModel playerModel;
     public int directionX = 1;
-    public int directionY = 0;
     public bool isMoving = false;
+    public bool isJumping = false;
 
     void Start()
     {
@@ -26,16 +26,21 @@ public class PlayerViewSidescroller : MonoBehaviour
 
     void UpdateFacingDirection()
     {
-        //Vector3 direction = playerModel.GetFacingDirection();
-        animator.SetFloat("DirectionX", directionX);
-        animator.SetFloat("DirectionY", directionY);
+        directionX = playerModel.GetFacingDirection();
+        if (directionX != 0)
+        {
+            animator.SetFloat("DirectionX", directionX);
+        }
 
         //if (direction != Vector3.zero)
         //{
         //    animator.SetFloat("DirectionX", direction.x);
         //    animator.SetFloat("DirectionY", direction.y);
         //}
+
+        isMoving = playerModel.IsMoving();
+        isJumping = playerModel.IsJumping();
         animator.SetBool("isMoving", isMoving);
-        //animator.SetBool("isMoving", playerModelTopDown.IsMoving());
+        animator.SetBool("isJumping", isJumping);
     }
 }

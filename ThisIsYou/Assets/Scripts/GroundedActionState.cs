@@ -5,7 +5,7 @@ using UnityEngine;
 public class GroundedActionState : ActionState {
 
     float _groundSkiddingDeceleration = 0.3f;
-    float _groundReleaseDeceleration = 0.3f;
+    float _groundReleaseDeceleration = 0.0f;
     float _xMaxGroundSpeed = 8f;
     float _xGroundAcceleration = 30f;
     float _highJumpGroundVelocityThreshold = 0f;
