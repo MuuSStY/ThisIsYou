@@ -18,6 +18,7 @@ public class PlayerModel : MonoBehaviour {
 
     private Rigidbody2D _rigidbody;
     private ParticleSystem _particleSystem;
+    private GameManager gameManager;
 
     private bool canMove = true;
     private bool isDead = false;
@@ -35,6 +36,8 @@ public class PlayerModel : MonoBehaviour {
 
         _groundedActionState = new GroundedActionState(this);
         _airborneActionState = new AirborneActionState(this);
+
+        gameManager = FindObjectOfType<GameManager>();
 
         canMove = true;
     }
@@ -123,12 +126,24 @@ public class PlayerModel : MonoBehaviour {
             isDead = true;
             _rigidbody.gravityScale = 0;
         }
+        if (col.gameObject.tag == "Victory")
+        {
+            StartCoroutine(GoToNextLevel());
+            canMove = false;
+        }
     }
 
     IEnumerator ResetLevel()
     {
         yield return new WaitForSeconds(1.0f);
         canMove = true;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        gameManager.ReloadCurrentScene();
+    }
+
+    IEnumerator GoToNextLevel()
+    {
+        yield return new WaitForSeconds(1.0f);
+        canMove = true;
+        gameManager.LoadScene(GameManager.ScenesToLoad.INTRO);
     }
 }
