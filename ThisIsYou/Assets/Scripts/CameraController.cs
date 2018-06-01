@@ -13,7 +13,8 @@ public class CameraController : MonoBehaviour {
     void Awake ()
     {
         _camera = GetComponent<Camera>();
-	}
+        _currentTargetSize = 6.0f;
+    }
 	
 	void Update ()
     {
