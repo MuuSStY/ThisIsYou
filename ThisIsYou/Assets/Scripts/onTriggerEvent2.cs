@@ -5,8 +5,15 @@ using UnityEngine.UI;
 
 public class onTriggerEvent2 : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    GameManager manager;
+
+    void Awake()
+    {
+        manager = FindObjectOfType<GameManager>();
+    }
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -22,6 +29,8 @@ public class onTriggerEvent2 : MonoBehaviour {
             Slider slider = GameObject.Find("Slider2").GetComponent<Slider>();
             slider.value = 0.3f;
             Debug.Log(slider.value);
+            manager.LoadScene(GameManager.ScenesToLoad.INTRO);
+
         }
     }
 }
