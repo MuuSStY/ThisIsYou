@@ -19,7 +19,8 @@ public class PlayerModel : MonoBehaviour {
     private Rigidbody2D _rigidbody;
     private ParticleSystem _particleSystem;
 
-    private bool canMove;
+    private bool canMove = true;
+    private bool isDead = false;
 
     void OnDrawGizmos()
     {
@@ -96,6 +97,14 @@ public class PlayerModel : MonoBehaviour {
         return _rigidbody.velocity.x != 0f;
     }
 
+    public bool IsDead(){
+        return isDead;
+    }
+
+    public bool HasWon(){
+        return true;
+    }
+
     public int GetFacingDirection()
     {
         return _facingDirection;
@@ -111,6 +120,8 @@ public class PlayerModel : MonoBehaviour {
         {
             StartCoroutine(ResetLevel());
             canMove = false;
+            isDead = true;
+            _rigidbody.gravityScale = 0;
         }
     }
 

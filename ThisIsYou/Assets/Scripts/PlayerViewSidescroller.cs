@@ -27,8 +27,7 @@ public class PlayerViewSidescroller : MonoBehaviour
     void UpdateFacingDirection()
     {
         directionX = playerModel.GetFacingDirection();
-            Debug.Log(directionX);
-        
+
         if (directionX != 0)
         {
             animator.SetFloat("DirectionX", directionX);
@@ -38,5 +37,14 @@ public class PlayerViewSidescroller : MonoBehaviour
         isJumping = playerModel.IsJumping();
         animator.SetBool("isMoving", isMoving);
         animator.SetBool("isJumping", isJumping);
+
+        if (playerModel.IsDead())
+        {
+            animator.SetTrigger("Death Trigger");
+        }
+        // if (playerModel.HasWon())
+        // {
+        //     animator.SetTrigger("Victory Trigger");
+        // }
     }
 }
