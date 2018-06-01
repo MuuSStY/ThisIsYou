@@ -13,8 +13,8 @@ public class CircularPatternController : MonoBehaviour
 
     private void Awake()
     {
-        _rotate_speed = Random.Range(3.0f, 5.0f);
-        _radius = 5.0f;
+        _rotate_speed = Random.Range(1.0f, 2.0f);
+        _radius = Random.Range(1.0f, 3.0f);
         _centre = new Vector2(0.0f, 1.0f);
     }
 
@@ -24,5 +24,10 @@ public class CircularPatternController : MonoBehaviour
 
         var offset = new Vector2(Mathf.Sin(_angle), Mathf.Cos(_angle)) * _radius;
         transform.position = _centre + offset;
+    }
+
+    public float GetRotateSpeed()
+    {
+        return _rotate_speed;
     }
 }

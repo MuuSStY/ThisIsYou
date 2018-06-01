@@ -13,9 +13,9 @@ public class CanvasIntroController : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
         _size_to_reach = _camera.GetComponent<CameraController>()._currentTargetSize;
-        Color c = _text.color;
-        c.a = 0.0f;
-        _text.color = c;
+        //Color c = _text.color;
+        //c.a = 0.0f;
+        //_text.color = c;
         _opacity_done = false;
     }
 	
