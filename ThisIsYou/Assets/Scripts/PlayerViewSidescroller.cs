@@ -42,9 +42,9 @@ public class PlayerViewSidescroller : MonoBehaviour
         {
             animator.SetTrigger("Death Trigger");
         }
-        // if (playerModel.HasWon())
-        // {
-        //     animator.SetTrigger("Victory Trigger");
-        // }
+        if (playerModel.HasWon())
+        {
+            animator.SetTrigger("Victory Trigger");
+        }
     }
 }

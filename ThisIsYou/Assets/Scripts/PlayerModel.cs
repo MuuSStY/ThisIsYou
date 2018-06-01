@@ -22,6 +22,7 @@ public class PlayerModel : MonoBehaviour {
 
     private bool canMove = true;
     private bool isDead = false;
+    private bool hasWon = false;
 
     void OnDrawGizmos()
     {
@@ -105,7 +106,7 @@ public class PlayerModel : MonoBehaviour {
     }
 
     public bool HasWon(){
-        return true;
+        return hasWon;
     }
 
     public int GetFacingDirection()
@@ -130,6 +131,8 @@ public class PlayerModel : MonoBehaviour {
         {
             StartCoroutine(GoToNextLevel());
             canMove = false;
+            hasWon = true;
+            _rigidbody.gravityScale = 0;
         }
     }
 
@@ -137,7 +140,7 @@ public class PlayerModel : MonoBehaviour {
     {
         yield return new WaitForSeconds(1.0f);
         canMove = true;
-        gameManager.ReloadCurrentScene();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     IEnumerator GoToNextLevel()

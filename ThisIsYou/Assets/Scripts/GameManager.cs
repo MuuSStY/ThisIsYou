@@ -53,7 +53,8 @@ public class GameManager : MonoBehaviour {
     }
 
     public void LoadScene(ScenesToLoad nextScene)
-    {
+    {   
+        currentLevel =  (int)nextScene;
         SceneManager.LoadScene((int)nextScene);
     }
 }
