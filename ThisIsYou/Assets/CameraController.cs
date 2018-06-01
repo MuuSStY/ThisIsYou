@@ -41,20 +41,6 @@ public class CameraController : MonoBehaviour {
 
     public void ChangeCameraTargetSize(int powerLevel)
     {
-        if (powerLevel > 0 && powerLevel < 4)
-        {
-            switch (powerLevel)
-            {
-                case 1:
-                    _currentTargetSize = _ssj1TargetSize;
-                    break;
-                case 2:
-                    _currentTargetSize = _ssj2TargetSize;
-                    break;
-                case 3:
-                    _currentTargetSize = _ssj3TargetSize;
-                    break;
-            }
-        }
+        _currentTargetSize = powerLevel;
     }
 }

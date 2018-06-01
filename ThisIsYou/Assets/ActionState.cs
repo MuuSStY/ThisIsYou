@@ -25,15 +25,11 @@ public abstract class ActionState{
 
     public virtual void OnStateExit(ActionState nextState) { _nextState = nextState; }
 
-    public virtual void RefreshPowerState() { }
-
     public virtual void MovementInput(float x, float y)
     {
         _lastX = x;
         _lastY = y;
     }
 
-    public virtual void OnJumpHighButton() { }
-
-    public virtual void OnJumpLongButton() { }  
+    public virtual void OnJumpHighButton() { } 
 }

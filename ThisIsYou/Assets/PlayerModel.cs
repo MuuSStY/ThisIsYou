@@ -16,16 +16,7 @@ public class PlayerModel : MonoBehaviour {
     public ActionState _airborneActionState;
     public ActionState _groundedActionState;
 
-    public PowerState _currentPowerState;
-    public PowerState _ssj1PowerState;
-    public PowerState _ssj2PowerState;
-    public PowerState _ssj3PowerState;
-
-    [Range(0, 3), HideInInspector]
-    public int _changeToPowerState = 0;
-
     private Rigidbody2D _rigidbody;
-    private PowerGauge _powerGauge;
     private ParticleSystem _particleSystem;
 
     void OnDrawGizmos()
@@ -38,16 +29,9 @@ public class PlayerModel : MonoBehaviour {
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _particleSystem = GetComponent<ParticleSystem>();
-        _powerGauge = FindObjectOfType<PowerGauge>();
-        if (!_powerGauge) { Debug.Log("No power gauge found"); }
 
         _groundedActionState = new GroundedActionState(this);
         _airborneActionState = new AirborneActionState(this);
-
-        _ssj1PowerState = new Ssj1PowerState(this);
-        _ssj2PowerState = new Ssj2PowerState(this);
-        _ssj3PowerState = new Ssj3PowerState(this);
-        SetPowerState(_ssj1PowerState);
     }
 
     void Start ()
@@ -62,24 +46,6 @@ public class PlayerModel : MonoBehaviour {
             _facingDirection = (int)(_rigidbody.velocity.x / Mathf.Abs(_rigidbody.velocity.x));
         }
         _currentActionState.Tick();
-        _currentPowerState.Tick();
-
-        if (_changeToPowerState != 0)
-        {
-            switch (_changeToPowerState)
-            {
-                case 1:
-                    SetPowerState(_ssj1PowerState);
-                    break;
-                case 2:
-                    SetPowerState(_ssj2PowerState);
-                    break;
-                case 3:
-                    SetPowerState(_ssj3PowerState);
-                    break;
-            }
-            _currentActionState.RefreshPowerState();
-        }
 
 	}
 
@@ -99,24 +65,6 @@ public class PlayerModel : MonoBehaviour {
         }
     }
 
-    public void SetPowerState(PowerState state)
-    {      
-        if (_currentPowerState != null)
-        {
-            _currentPowerState.OnStateExit(state);
-        }
-
-        PowerState exitingState = _currentPowerState;
-        _currentPowerState = state;
-
-        if (_currentPowerState != null)
-        {
-            _currentPowerState.OnStateEnter(exitingState);
-        }
-    }
-
-
-
     public void DirectionBindings(float x, float y)
     {
         _currentActionState.MovementInput(x, y);
@@ -125,20 +73,6 @@ public class PlayerModel : MonoBehaviour {
     public void OnJumpHighButton()
     {
         _currentActionState.OnJumpHighButton();
-    }
-
-    public void OnJumpLongButton()
-    {
-        _currentActionState.OnJumpLongButton();
-    }
-
-    public void OnReleaseEnergyButton()
-    {
-        if (_powerGauge.GetPowerLevel() != 0)
-        {
-            _particleSystem.Emit(200);
-        }
-        _powerGauge.ReleaseEnergy(10000);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
