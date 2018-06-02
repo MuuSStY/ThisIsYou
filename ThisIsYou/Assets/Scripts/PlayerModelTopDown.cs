@@ -10,12 +10,20 @@ public class PlayerModelTopDown : MonoBehaviour
     //Hide in inspector (o no, da un poco igual)
     float _x = 0, _y = 0, movementspeed;
 
+    [SerializeField] private float distanceToMove;
+    [SerializeField] private float moveSpeed;
+    public bool moveToPoint = false;
+    private Vector2 endPosition;
+    public Vector2 screenPos;
 
     public int _facingDirection = 1;
+    public string tag_to_detect;
     public Vector2 _snapArea = new Vector2(2.5f, 2.5f);
-    private Vector2 pos;
+    public Vector2 pos;
+    private Vector2 pos_aux;
     private Rigidbody2D _rigidbody;
     private ParticleSystem _particleSystem;
+    private Transform tr;
 
     void OnDrawGizmos()
     {
@@ -29,38 +37,60 @@ public class PlayerModelTopDown : MonoBehaviour
         _particleSystem = GetComponent<ParticleSystem>();
         _rigidbody.gravityScale = 0.0f;
         pos = transform.position;
+        tr = transform;
         //_groundedActionState = new GroundedActionState(this);
         //_airborneActionState = new AirborneActionState(this);
     }
 
     void Start()
     {
-        movementspeed = 2f;
+        endPosition = transform.position;
+        movementspeed = 0.001f;
     }
 
     void Update()
     {
-        //_rigidbody.velocity = Vector3.zero;
-        //_rigidbody.angularVelocity = 0;
-        if (IsMoving())
+
+        Vector2 t = new Vector2(transform.position.x, transform.position.y);
+        if (Input.GetKey(KeyCode.A)) //Left
         {
-            if (Input.GetKey(KeyCode.A) && Vector2.Equals(new Vector2(transform.position.x, transform.position.y), pos))
-            {        // Left
-                pos += Vector2.left;
-            }
-            if (Input.GetKey(KeyCode.D) && Vector2.Equals(new Vector2(transform.position.x, transform.position.y), pos))
-            {        // Right
-                pos += Vector2.right;
-            }
-            if (Input.GetKey(KeyCode.W) && Vector2.Equals(new Vector2(transform.position.x, transform.position.y), pos))
-            {        // Up
-                pos += Vector2.up;
-            }
-            if (Input.GetKey(KeyCode.S) && Vector2.Equals(new Vector2(transform.position.x, transform.position.y), pos))
-            {        // Down
-                pos += Vector2.down;
-            }
-            transform.position = Vector3.MoveTowards(transform.position, pos, Time.deltaTime * movementspeed);
+            //endPosition += distanceToMove * Vector2.left;
+            endPosition = new Vector2(endPosition.x - distanceToMove, endPosition.y);
+            moveToPoint = true;
+        }
+        if (Input.GetKey(KeyCode.D)) //Right
+        {
+            //endPosition += distanceToMove * Vector2.right;
+            endPosition = new Vector2(endPosition.x + distanceToMove, endPosition.y);
+            moveToPoint = true;
+        }
+        if (Input.GetKey(KeyCode.W)) //Up
+        {
+            //endPosition += distanceToMove * Vector2.up;
+            endPosition = new Vector2(endPosition.x, endPosition.y + distanceToMove);
+            moveToPoint = true;
+        }
+        if (Input.GetKey(KeyCode.S)) //Down
+        {
+            endPosition = new Vector2(endPosition.x, endPosition.y - distanceToMove);
+            //endPosition += distanceToMove * Vector2.down;
+            moveToPoint = true;
+        }
+
+        else if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+        {
+            moveToPoint = false;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (moveToPoint)
+        {
+            _rigidbody.MovePosition(endPosition * moveSpeed * Time.deltaTime);
+            GameObject newObject = GameObject.Instantiate(Resources.Load("Prefabs/PintedPink")) as GameObject;
+            newObject.transform.position = transform.position;
+            //transform.position = Vector2.MoveTowards(transform.position, endPosition, moveSpeed * Time.deltaTime);
         }
     }
 
@@ -75,8 +105,12 @@ public class PlayerModelTopDown : MonoBehaviour
         _y = y;
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         //Recibir daño
+        if (collision.tag == tag_to_detect)
+        {
+            Destroy(collision.gameObject);
+        }
     }
 }
