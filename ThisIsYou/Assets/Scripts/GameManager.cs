@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
         INTRO = 0,
         SCHOOL,
         PAINT,
-        CLOTHES,
         END
     }
 
