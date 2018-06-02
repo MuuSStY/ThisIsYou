@@ -127,6 +127,13 @@ public class PlayerModel : MonoBehaviour {
             isDead = true;
             _rigidbody.gravityScale = 0;
         }
+        if (col.gameObject.tag == "Ball")
+        {
+            StartCoroutine(ResetLevel());
+            canMove = false;
+            isDead = true;
+            _rigidbody.gravityScale = 20;
+        }
         if (col.gameObject.tag == "Victory")
         {
             StartCoroutine(GoToNextLevel());

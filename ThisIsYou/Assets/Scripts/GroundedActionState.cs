@@ -9,8 +9,8 @@ public class GroundedActionState : ActionState {
     float _xMaxGroundSpeed = 8f;
     float _xGroundAcceleration = 30f;
     float _highJumpGroundVelocityThreshold = 0f;
-    float _yHighJumpVelocity0 = 7.5f;
-    float _yHighJumpVelocity1 = 9f;
+    float _yHighJumpVelocity0 = 9.5f;
+    float _yHighJumpVelocity1 = 11f;
 
     public GroundedActionState(PlayerModel player) : base(player)
     {
