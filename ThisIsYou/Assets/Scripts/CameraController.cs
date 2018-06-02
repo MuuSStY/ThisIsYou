@@ -7,18 +7,23 @@ public class CameraController : MonoBehaviour {
     private Camera _camera;
     private Transform playerTransform;
     public float _currentTargetSize = 5.0f;
-
+    public bool offsetWithPlayerY = false;
     public float _zoomVelocity = 0.4f;
 
     void Awake ()
     {
         _camera = GetComponent<Camera>();
-        playerTransform = FindObjectOfType<PlayerModel>().GetComponent<Transform>();
+        PlayerModel playerModel = FindObjectOfType<PlayerModel>();
+        if(playerModel){
+            playerTransform = playerModel.GetComponent<Transform>();
+        }
     }
 	
 	void Update ()
     {
-        ChangeCameraOffset();
+        if(offsetWithPlayerY){
+            ChangeCameraOffset();
+        }
 
         float size = _camera.orthographicSize;
 
