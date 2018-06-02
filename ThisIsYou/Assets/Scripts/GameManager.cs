@@ -3,9 +3,13 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
-public class GameManager : MonoBehaviour {
-
+public class GameManager : MonoBehaviour
+{
+    
     public static GameManager instance;
+    public List<AudioClip> clips;
+
+    new public AudioSource audio;
 
     public enum ScenesToLoad
     {
@@ -29,8 +33,13 @@ public class GameManager : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
-
         DontDestroyOnLoad(this);
+    }
+
+    void Start()
+    {
+        audio.clip = clips[currentLevel];
+        audio.Play();
     }
 
     void OnLevelWasLoaded(int level)
@@ -39,6 +48,8 @@ public class GameManager : MonoBehaviour {
         if (!isReloading)
         {
             currentLevel = level;
+            audio.clip = clips[currentLevel];
+            audio.Play();
         }
         else
         {
@@ -53,8 +64,12 @@ public class GameManager : MonoBehaviour {
     }
 
     public void LoadScene(ScenesToLoad nextScene)
-    {   
-        currentLevel =  (int)nextScene;
+    {
+        if (audio.isPlaying)
+        {
+            audio.Stop();
+        }
+        currentLevel = (int)nextScene;
         SceneManager.LoadScene((int)nextScene);
     }
 }

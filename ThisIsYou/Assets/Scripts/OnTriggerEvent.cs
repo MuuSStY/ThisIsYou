@@ -12,27 +12,31 @@ public class OnTriggerEvent : MonoBehaviour
     }
     public TriggerType triggerType;
 
+    bool hasEntered = false;
+
+    SexualitySlider slider;
     PlayerModel playerModel;
 
     void Awake()
     {
         playerModel = FindObjectOfType<PlayerModel>();
+        slider = FindObjectOfType<SexualitySlider>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !hasEntered)
         {
-            Slider slider = GameObject.Find("Slider2").GetComponent<Slider>();
+            hasEntered = true;
             switch (triggerType)
             {
                 case TriggerType.BOYTOYS:
-                    slider.value -= 0.2f;
-                    Debug.Log(slider.value);
+                    slider.AddToBar(0.25f);
+                    Debug.Log(slider.GetValue());
                     break;
                 case TriggerType.GIRLTOYS:
-                    slider.value += 0.2f;
-                    Debug.Log(slider.value);
+                    slider.AddToBar(-0.25f);
+                    Debug.Log(slider.GetValue());
                     break;
             }
         }
