@@ -34,7 +34,7 @@ public class PaintTimer : MonoBehaviour
     public IEnumerator CountTimeForSceneChange(float time)
     {
         yield return new WaitForSeconds(time);
-        manager.LoadScene(GameManager.ScenesToLoad.INTRO);
+        manager.LoadScene(GameManager.ScenesToLoad.END);
     }
 
 }
