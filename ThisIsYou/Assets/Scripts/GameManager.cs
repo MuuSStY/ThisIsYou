@@ -3,9 +3,11 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
 
     public static GameManager instance;
+    public static AudioSource audio;
 
     public enum ScenesToLoad
     {
@@ -21,6 +23,7 @@ public class GameManager : MonoBehaviour {
 
     void Awake()
     {
+        audio.Play();
         if (instance == null)
         {
             instance = this;
@@ -29,7 +32,6 @@ public class GameManager : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
-
         DontDestroyOnLoad(this);
     }
 
@@ -53,8 +55,13 @@ public class GameManager : MonoBehaviour {
     }
 
     public void LoadScene(ScenesToLoad nextScene)
-    {   
-        currentLevel =  (int)nextScene;
+    {
+        currentLevel = (int)nextScene;
         SceneManager.LoadScene((int)nextScene);
+        if (audio.isPlaying)
+        {
+            audio.Stop();
+
+        }
     }
 }
