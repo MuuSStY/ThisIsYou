@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(PlayerModel))]
+[RequireComponent(typeof(PlayerModelTopDown))]
 public class PlayerControllerTopDown : MonoBehaviour
 {
     private PlayerModelTopDown _playerModelTopDown;

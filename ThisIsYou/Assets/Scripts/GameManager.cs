@@ -5,9 +5,11 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
-
+    
     public static GameManager instance;
-    public static AudioSource audio;
+    public List<AudioClip> clips;
+
+    new public AudioSource audio;
 
     public enum ScenesToLoad
     {
@@ -23,7 +25,6 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        audio.Play();
         if (instance == null)
         {
             instance = this;
@@ -35,12 +36,20 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
+    void Start()
+    {
+        audio.clip = clips[currentLevel];
+        audio.Play();
+    }
+
     void OnLevelWasLoaded(int level)
     {
         if (this != instance) return; //To avoid duplicate GameManager to run this before being destroyed
         if (!isReloading)
         {
             currentLevel = level;
+            audio.clip = clips[currentLevel];
+            audio.Play();
         }
         else
         {
@@ -56,12 +65,11 @@ public class GameManager : MonoBehaviour
 
     public void LoadScene(ScenesToLoad nextScene)
     {
+        //if (audio.isPlaying)
+        //{
+        //    audio.Stop();
+        //}
         currentLevel = (int)nextScene;
         SceneManager.LoadScene((int)nextScene);
-        if (audio.isPlaying)
-        {
-            audio.Stop();
-
-        }
     }
 }
