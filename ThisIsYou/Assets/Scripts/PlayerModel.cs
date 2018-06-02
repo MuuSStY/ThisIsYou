@@ -154,6 +154,6 @@ public class PlayerModel : MonoBehaviour {
     {
         yield return new WaitForSeconds(1.0f);
         canMove = true;
-        gameManager.LoadScene(GameManager.ScenesToLoad.INTRO);
+        gameManager.LoadScene(GameManager.ScenesToLoad.PAINT);
     }
 }

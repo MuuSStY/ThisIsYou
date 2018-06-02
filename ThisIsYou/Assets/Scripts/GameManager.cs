@@ -65,10 +65,10 @@ public class GameManager : MonoBehaviour
 
     public void LoadScene(ScenesToLoad nextScene)
     {
-        if (audio.isPlaying)
-        {
-            audio.Stop();
-        }
+        //if (audio.isPlaying)
+        //{
+        //    audio.Stop();
+        //}
         currentLevel = (int)nextScene;
         SceneManager.LoadScene((int)nextScene);
     }
