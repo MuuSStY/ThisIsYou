@@ -31,7 +31,7 @@ public class PaintTimer : MonoBehaviour
         StartCoroutine(CountTimeForSceneChange(timeToLoadNextScene));
     }
 
-    IEnumerator CountTimeForSceneChange(float time)
+    public IEnumerator CountTimeForSceneChange(float time)
     {
         yield return new WaitForSeconds(time);
         manager.LoadScene(GameManager.ScenesToLoad.INTRO);

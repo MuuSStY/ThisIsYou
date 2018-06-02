@@ -19,6 +19,7 @@ public class PaintingController : MonoBehaviour {
             //Every frame we spawn a prefab of the pink floor.
             GameObject newObject = GameObject.Instantiate(Resources.Load("Prefabs/PinkFloor")) as GameObject;
             newObject.transform.position = transform.position;
+            
         }
     }
 }

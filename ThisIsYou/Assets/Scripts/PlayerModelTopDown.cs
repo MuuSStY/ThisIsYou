@@ -9,7 +9,7 @@ public class PlayerModelTopDown : MonoBehaviour
 
     //Hide in inspector (o no, da un poco igual)
     float _x = 0, _y = 0, movementspeed;
-
+    
     [SerializeField] private float distanceToMove;
     [SerializeField] private float moveSpeed;
     public bool moveToPoint = false;
@@ -21,9 +21,11 @@ public class PlayerModelTopDown : MonoBehaviour
     public Vector2 _snapArea = new Vector2(2.5f, 2.5f);
     public Vector2 pos;
     private Vector2 pos_aux;
+    public SexualitySlider slider;
     private Rigidbody2D _rigidbody;
     private ParticleSystem _particleSystem;
     private Transform tr;
+    PaintTimer paintTimer;
 
     void OnDrawGizmos()
     {
@@ -38,6 +40,8 @@ public class PlayerModelTopDown : MonoBehaviour
         _rigidbody.gravityScale = 0.0f;
         pos = transform.position;
         tr = transform;
+        paintTimer = GetComponent<PaintTimer>();
+        slider = FindObjectOfType<SexualitySlider>();
         //_groundedActionState = new GroundedActionState(this);
         //_airborneActionState = new AirborneActionState(this);
     }
@@ -46,6 +50,7 @@ public class PlayerModelTopDown : MonoBehaviour
     {
         endPosition = transform.position;
         movementspeed = 0.001f;
+        StartCoroutine(paintTimer.CountTimeForSceneChange(60.0f));
     }
 
     void Update()
@@ -77,10 +82,16 @@ public class PlayerModelTopDown : MonoBehaviour
             moveToPoint = true;
         }
 
-        else if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+        if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
         {
             moveToPoint = false;
         }
+        else
+        {
+            slider.AddToBar(-0.01f);
+        }
+        
+
     }
 
     void FixedUpdate()
@@ -111,6 +122,7 @@ public class PlayerModelTopDown : MonoBehaviour
         if (collision.tag == tag_to_detect)
         {
             Destroy(collision.gameObject);
+
         }
     }
 }
